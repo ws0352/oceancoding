@@ -6,9 +6,3 @@ spring:
     password: 0352.sw131
   jpa:
     show-sql: true
-  devtools:
-    restart:
-      enabled: true
-  freemarker:
-    cache: false #页面不加载缓存，修改即时生效
-debug: true
