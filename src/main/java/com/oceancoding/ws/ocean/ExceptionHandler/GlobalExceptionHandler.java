@@ -5,6 +5,7 @@ import com.oceancoding.ws.ocean.ResponseData.GlobalResultBody;
 
 import com.sun.org.slf4j.internal.Logger;
 import com.sun.org.slf4j.internal.LoggerFactory;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -35,8 +36,19 @@ public class GlobalExceptionHandler {
         return GlobalResultBody.error(CommonEnum.BODY_NOT_MATCH);
 
     }
+
     /*
-     * 处理空指针异常
+     * 操作数据库出现异常:名称重复，外键关联
+     * */
+    @ExceptionHandler(value = DataIntegrityViolationException.class)
+    @ResponseBody
+    public GlobalResultBody exceptionHandler(HttpServletRequest request, DataIntegrityViolationException e){
+        logger.error("发生数据库异常！原因是：", e);
+        return GlobalResultBody.error(CommonEnum.SQL_HANDLE_ERROR);
+
+    }
+    /*
+     * 其他异常
      * */
     @ExceptionHandler(value = Exception.class)
     @ResponseBody
