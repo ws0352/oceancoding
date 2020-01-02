@@ -1,4 +1,4 @@
-package com.oceancoding.ws.ocean.ExceptionHandler;
+package com.oceancoding.ws.ocean.exceptionHandler;
 
 /*
 * 处理业务异常

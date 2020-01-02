@@ -1,4 +1,4 @@
-package com.oceancoding.ws.ocean.ExceptionHandler;
+package com.oceancoding.ws.ocean.exceptionHandler;
 
 public interface BaseErrorInfoInterface {
     String getResultCode();//错误描述

@@ -1,6 +1,6 @@
-package com.oceancoding.ws.ocean.ExceptionHandler.Enum;
+package com.oceancoding.ws.ocean.exceptionHandler.Enum;
 
-import com.oceancoding.ws.ocean.ExceptionHandler.BaseErrorInfoInterface;
+import com.oceancoding.ws.ocean.exceptionHandler.BaseErrorInfoInterface;
 
 public enum CommonEnum implements BaseErrorInfoInterface {
     //数据操作错误定义

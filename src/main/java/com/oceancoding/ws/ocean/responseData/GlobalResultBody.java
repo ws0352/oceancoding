@@ -1,8 +1,8 @@
-package com.oceancoding.ws.ocean.ResponseData;
+package com.oceancoding.ws.ocean.responseData;
 
 import com.alibaba.fastjson.JSONObject;
-import com.oceancoding.ws.ocean.ExceptionHandler.BaseErrorInfoInterface;
-import com.oceancoding.ws.ocean.ExceptionHandler.Enum.CommonEnum;
+import com.oceancoding.ws.ocean.exceptionHandler.BaseErrorInfoInterface;
+import com.oceancoding.ws.ocean.exceptionHandler.Enum.CommonEnum;
 
 public class GlobalResultBody {
     private String code;//响应代码

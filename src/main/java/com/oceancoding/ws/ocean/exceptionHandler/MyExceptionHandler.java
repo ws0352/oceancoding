@@ -1,4 +1,4 @@
-package com.oceancoding.ws.ocean.ExceptionHandler;
+package com.oceancoding.ws.ocean.exceptionHandler;
 
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
