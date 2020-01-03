@@ -13,7 +13,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@Api(tags = "用户管理相关接口")
+@Api(description = "用户管理相关接口")
 @RequestMapping("/user")
 public class UserController {
     private static final Logger logger =  LoggerFactory.getLogger(UserController.class);
@@ -30,8 +30,34 @@ public class UserController {
 //        if(user.getUserName()==null){
 //            throw  new BizException("-1","用户不能为空！");
 //        }
-        
+
         return true;
     }
+//    @Autowired
+//    private RedisUtils redisUtils;
+//    @RequestMapping(value = "/hello/{id}")
+//    public String hello(@PathVariable(value = "id") String id){
+//        //查询缓存中是否存在
+//        boolean hasKey = redisUtils.exists(id);
+//        String str = "";
+//        if(hasKey){
+//            //获取缓存
+//            Object object =  redisUtils.get(id);
+//            log.info("从缓存获取的数据"+ object);
+//            str = object.toString();
+//        }else{
+//            //从数据库中获取信息
+//            log.info("从数据库中获取数据");
+//            str = testService.test();
+//            //数据插入缓存（set中的参数含义：key值，user对象，缓存存在时间10（long类型），时间单位）
+//            redisUtils.set(id,str,10L,TimeUnit.MINUTES);
+//            log.info("数据插入缓存" + str);
+//        }
+//        return str;
+//    }
 
+    @RequestMapping("/")
+    public String get(){
+        return "it's";
+    }
 }
