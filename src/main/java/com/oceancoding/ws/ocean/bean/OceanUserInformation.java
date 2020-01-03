@@ -9,6 +9,7 @@ import java.util.Date;
 
 @Entity
 @Data
+@Table(name = "ocean_user_info")
 public class OceanUserInformation {
 
     @Id
@@ -23,7 +24,7 @@ public class OceanUserInformation {
     @Column(name = "gmt_modify")
     private Date gmtModify;
 
-    @Column(name = "user_name")
+    @Column(name = "username")
     private String userName;
 
     @Column(name = "phone")

@@ -11,6 +11,7 @@ import java.util.Date;
 
 @Entity
 @Data
+@Table(name = "ocean_user")
 public class OceanUser {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -24,7 +25,7 @@ public class OceanUser {
     @Column(name = "gmt_modify")
     private Date gmtModify;
 
-    @Column(name = "user_name")
+    @Column(name = "username")
     private String userName;
 
     @Column(name = "email")

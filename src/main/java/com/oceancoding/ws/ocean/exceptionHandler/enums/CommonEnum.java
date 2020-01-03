@@ -1,4 +1,4 @@
-package com.oceancoding.ws.ocean.exceptionHandler.Enum;
+package com.oceancoding.ws.ocean.exceptionHandler.enums;
 
 import com.oceancoding.ws.ocean.exceptionHandler.BaseErrorInfoInterface;
 

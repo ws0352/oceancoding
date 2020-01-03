@@ -1,6 +1,6 @@
 package com.oceancoding.ws.ocean.exceptionHandler;
 
-import com.oceancoding.ws.ocean.exceptionHandler.Enum.CommonEnum;
+import com.oceancoding.ws.ocean.exceptionHandler.enums.CommonEnum;
 import com.oceancoding.ws.ocean.responseData.GlobalResultBody;
 
 import com.sun.org.slf4j.internal.Logger;

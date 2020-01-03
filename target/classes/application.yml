@@ -29,4 +29,9 @@ spring:
     timeout: 30000
 debug: true
 
+#kafka:
+#  consumer:
+#    zookeeper:
+#      connect:
+
 
