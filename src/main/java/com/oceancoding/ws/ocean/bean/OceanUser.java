@@ -15,7 +15,7 @@ import java.util.Date;
 public class OceanUser {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer id;
+    private Long id;
 
     @CreatedDate
     @Column(name = "gmt_create")
@@ -37,7 +37,7 @@ public class OceanUser {
     public OceanUser(){
 
     }
-    public OceanUser(Integer id, Date gmtCreate, Date gmtModify, String userName, String email, String password) {
+    public OceanUser(Long id, Date gmtCreate, Date gmtModify, String userName, String email, String password) {
         this.id = id;
         this.gmtCreate = gmtCreate;
         this.gmtModify = gmtModify;
@@ -46,11 +46,11 @@ public class OceanUser {
         this.password = password;
     }
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

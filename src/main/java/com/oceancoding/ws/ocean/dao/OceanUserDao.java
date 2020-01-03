@@ -10,6 +10,8 @@ import org.springframework.stereotype.Repository;
 @Mapper
 public interface OceanUserDao extends JpaRepository<OceanUser, Integer> {
 
-    OceanUser findUserById(String Id);
+    public OceanUser getOceanUserById(Integer id);
+
+//    public OceanUser save();
 
 }

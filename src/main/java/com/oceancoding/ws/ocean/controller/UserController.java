@@ -4,19 +4,28 @@ import com.oceancoding.ws.ocean.bean.OceanUser;
 import com.oceancoding.ws.ocean.exceptionHandler.BizException;
 import com.oceancoding.ws.ocean.exceptionHandler.GlobalExceptionHandler;
 
+import com.oceancoding.ws.ocean.service.OceanUserServiceImpl;
+import com.oceancoding.ws.ocean.utils.IdWorker;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @Api(description = "用户管理相关接口")
 @RequestMapping("/user")
 public class UserController {
+
+    //日志
     private static final Logger logger =  LoggerFactory.getLogger(UserController.class);
+
+    @Autowired
+    OceanUserServiceImpl oceanUserService;
+
     @PostMapping("/")
     @ApiOperation("用户注册的接口")
     @ApiImplicitParams({
@@ -26,10 +35,18 @@ public class UserController {
     })
     public boolean registerUser(@RequestParam(required = true)String username, String email, @RequestParam(required = true)String password) {
         logger.info("用户开始注册");
+        OceanUser oceanUser = null;
+        IdWorker idWorker = new IdWorker();
+        oceanUser.setId(idWorker.nextId());
+        oceanUser.setEmail(email);
+        oceanUser.setUserName(username);
+        oceanUser.setPassword(password);
+        oceanUserService.insertUser(oceanUser);
         //如果用户名为空就手动抛出一个自定义的异常！
 //        if(user.getUserName()==null){
 //            throw  new BizException("-1","用户不能为空！");
 //        }
+        logger.info("注册成功", oceanUser.getId(),oceanUser.getEmail(),oceanUser.getUserName(),oceanUser.getPassword());
 
         return true;
     }

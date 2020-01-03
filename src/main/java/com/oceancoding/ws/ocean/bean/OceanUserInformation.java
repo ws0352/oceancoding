@@ -14,7 +14,7 @@ public class OceanUserInformation {
 
     @Id
     @GeneratedValue( strategy = GenerationType.AUTO)
-    private Integer Id;
+    private Long Id;
 
     @CreatedDate
     @Column(name = "gmt_create")
@@ -48,7 +48,7 @@ public class OceanUserInformation {
     public OceanUserInformation(){
 
     }
-    public OceanUserInformation(Integer id, Date gmtCreate, Date gmtModify, String userName, String phone, String email, int role, String name, String sex, Date brithDate) {
+    public OceanUserInformation(Long id, Date gmtCreate, Date gmtModify, String userName, String phone, String email, int role, String name, String sex, Date brithDate) {
         Id = id;
         this.gmtCreate = gmtCreate;
         this.gmtModify = gmtModify;
@@ -61,11 +61,11 @@ public class OceanUserInformation {
         this.brithDate = brithDate;
     }
 
-    public Integer getId() {
+    public Long getId() {
         return Id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         Id = id;
     }
 
