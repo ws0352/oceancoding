@@ -73,7 +73,7 @@ public class UserController {
 //        return str;
 //    }
 
-    @RequestMapping("/")
+    @GetMapping("/")
     public String get(){
         return "it's";
     }
