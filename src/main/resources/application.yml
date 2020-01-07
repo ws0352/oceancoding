@@ -32,10 +32,14 @@ spring:
 #      password: 123456
 #      name: root
 debug: true
-
 #kafka:
 #  consumer:
 #    zookeeper:
 #      connect:
 
-
+logging:
+  file:
+    path: /var/log/
+    name: ocean.log
+#  level:
+#    root: info

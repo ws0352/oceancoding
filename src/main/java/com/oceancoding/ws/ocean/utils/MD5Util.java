@@ -1,7 +1,6 @@
 package com.oceancoding.ws.ocean.utils;
 
 import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 
 public class MD5Util {
     private static final String SALT = "ocean";
