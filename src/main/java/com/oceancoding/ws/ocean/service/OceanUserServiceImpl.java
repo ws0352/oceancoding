@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class OceanUserServiceImpl {
+public class OceanUserServiceImpl implements OceanUserService{
 
     @Autowired
     OceanUserDao oceanUserDao;
