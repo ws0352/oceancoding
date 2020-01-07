@@ -31,7 +31,7 @@ import java.time.Duration;
 
 
 @Configuration
-@EnableCaching
+@EnableCaching//开启缓存
 @RefreshScope
 public class RedisConfig extends CachingConfigurerSupport {
 

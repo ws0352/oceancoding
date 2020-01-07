@@ -1,9 +1,8 @@
 package com.oceancoding.ws.ocean.controller;
 
 import com.oceancoding.ws.ocean.bean.OceanUser;
-import com.oceancoding.ws.ocean.exceptionHandler.BizException;
-import com.oceancoding.ws.ocean.exceptionHandler.GlobalExceptionHandler;
 
+import com.oceancoding.ws.ocean.responseData.GlobalResultBody;
 import com.oceancoding.ws.ocean.service.OceanUserServiceImpl;
 import com.oceancoding.ws.ocean.utils.IdWorker;
 import io.swagger.annotations.Api;
@@ -19,7 +18,6 @@ import org.springframework.web.bind.annotation.*;
 @Api(description = "用户管理相关接口")
 @RequestMapping("/user")
 public class UserController {
-
     //日志
     private static final Logger logger =  LoggerFactory.getLogger(UserController.class);
 
@@ -74,7 +72,12 @@ public class UserController {
 //    }
 
     @GetMapping("/")
-    public String get(){
-        return "it's";
+    @ResponseBody
+    public GlobalResultBody get(){
+        OceanUser oceanUser = new OceanUser();
+        oceanUser.setUserName("ss");
+        oceanUser.setPassword("12356");
+        return GlobalResultBody.success(oceanUser);
+
     }
 }
