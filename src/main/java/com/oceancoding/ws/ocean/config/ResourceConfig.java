@@ -1,6 +1,6 @@
 package com.oceancoding.ws.ocean.config;
 
-import com.oceancoding.ws.ocean.interceptor.ExternalServiceInterceptor;
+import com.oceancoding.ws.ocean.interceptor.LoginInterceptor;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
@@ -9,7 +9,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 public class ResourceConfig implements WebMvcConfigurer {
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(new ExternalServiceInterceptor()).addPathPatterns("/api/**");
+        registry.addInterceptor(new LoginInterceptor()).addPathPatterns("/api/**");
         WebMvcConfigurer.super.addInterceptors(registry);
     }
 }
