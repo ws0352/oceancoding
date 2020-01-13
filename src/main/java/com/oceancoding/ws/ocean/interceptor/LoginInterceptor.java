@@ -22,12 +22,12 @@ import javax.servlet.http.HttpServletResponse;
 import java.lang.reflect.Method;
 
 @Component
-public class ExternalServiceInterceptor extends HandlerInterceptorAdapter {
+public class LoginInterceptor extends HandlerInterceptorAdapter {
     private Logger logger = LoggerFactory.getLogger(getClass());
 
     private static final String ASSESS_TOKEN = "assessToken";
     private static final String EXCEPTION_MSG = "signature does not match locally computed signature,error code:";
-    
+
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
