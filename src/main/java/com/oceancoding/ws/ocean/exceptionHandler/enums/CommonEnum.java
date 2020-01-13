@@ -6,7 +6,9 @@ public enum CommonEnum implements BaseErrorInfoInterface {
     //数据操作错误定义
     SUCCESS("200", "接口响应成功"),
     BODY_NOT_MATCH("400", "请求数据格式不符"),
-    SIGNATURE_NOT_MATCH("401", "请求的数字签名不匹配"),
+    SIGNATURE_NOT_MATCH("301", "请求的数字签名不匹配"),
+    SIGNATURE_EXPIRED("302", "请求的数字签名已过期"),
+    SIGNATURE_NOT_FOUND("303", "请求的数字签名不存在"),
     SQL_HANDLE_ERROR("402", "数据库异常"),
     NOT_FOUNT("404", "未找到该资源"),
     METHOD_NOT_ALLOWED("405","请求方式不正确"),
