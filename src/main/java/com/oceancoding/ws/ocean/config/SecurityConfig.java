@@ -1,9 +1,6 @@
 package com.oceancoding.ws.ocean.config;
 
-import com.oceancoding.ws.ocean.service.OceanUserService;
-import com.oceancoding.ws.ocean.service.OceanUserServiceImpl;
-import com.oceancoding.ws.ocean.utils.MD5Util;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.oceancoding.ws.ocean.utils.MD5Utils;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -33,12 +30,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         auth.userDetailsService(userDetailsService()).passwordEncoder(new PasswordEncoder() {
             @Override
             public String encode(CharSequence charSequence) {
-                return MD5Util.encode((String)charSequence);
+                return MD5Utils.encode((String)charSequence);
             }
 
             @Override
             public boolean matches(CharSequence charSequence, String s) {
-                return s.equals(MD5Util.encode((String)charSequence));
+                return s.equals(MD5Utils.encode((String)charSequence));
             }
         });
     }

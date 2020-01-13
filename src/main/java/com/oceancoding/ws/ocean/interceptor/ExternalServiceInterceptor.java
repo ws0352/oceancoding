@@ -1,53 +1,80 @@
 package com.oceancoding.ws.ocean.interceptor;
 
+import cn.hutool.core.date.DateUtil;
 import com.oceancoding.ws.ocean.annotations.RequireSignature;
 import com.oceancoding.ws.ocean.exceptionHandler.BizException;
 import com.oceancoding.ws.ocean.exceptionHandler.enums.CommonEnum;
-import org.apache.commons.codec.digest.DigestUtils;
-import org.slf4j.LoggerFactory;
+import com.oceancoding.ws.ocean.utils.JwtUtils;
+import io.jsonwebtoken.Claims;
+import io.micrometer.core.instrument.util.StringUtils;
 import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.core.annotation.AnnotatedElementUtils;
 import org.springframework.stereotype.Component;
+import org.springframework.util.ObjectUtils;
 import org.springframework.web.method.HandlerMethod;
-import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
+
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.lang.reflect.Method;
 
 @Component
-public class ExternalServiceInterceptor implements HandlerInterceptor {
+public class ExternalServiceInterceptor extends HandlerInterceptorAdapter {
     private Logger logger = LoggerFactory.getLogger(getClass());
-    //定义appid及密钥
-    private static final String appid = "19827931182981731";
-    private static final String appsecret = "sahqkwnkjaschailkdnakhsk.s;aakdkhahda";
+
+    private static final String ASSESS_TOKEN = "assessToken";
+    private static final String EXCEPTION_MSG = "signature does not match locally computed signature,error code:";
+    
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-        Method method = ((HandlerMethod) handler).getMethod();
-        if(AnnotatedElementUtils.isAnnotated(method, RequireSignature.class)){
-            long now = System.currentTimeMillis();
-            String timestamp = request.getParameter("timestamp");
-            Long timestampGain = Long.parseLong("timestamp");
-            if(Math.abs(now - timestampGain) > 3_000_000){
-                logger.error("签名时间【" + timestampGain +"】已经过期，请重试！");
-                throw new BizException(CommonEnum.SIGNATURE_EXPIRED);
-            }
-            String nonce_str = request.getParameter("nonce_str");
-            String signGain = request.getParameter("sign");
-            if (nonce_str.isEmpty() || signGain.isEmpty()){
-                logger.error("签名不存在，请稍后再试");
-                throw new BizException(CommonEnum.SIGNATURE_NOT_FOUND);
-            }
-            String sign = DigestUtils.sha256Hex(appid + "&" + timestamp + "&" + nonce_str + "&" + appsecret).toLowerCase();
-            if(!signGain.equals(sign)){
-                logger.error("签名【" + signGain +"】错误");
-                throw new BizException(CommonEnum.SIGNATURE_NOT_MATCH);
-            }
+        if(!(handler instanceof HandlerMethod)){
             return true;
         }
-        return false;
+        Method method = ((HandlerMethod) handler).getMethod();
+        // 有 @RequireSignature 注解，需要认证
+        if(AnnotatedElementUtils.isAnnotated(method, RequireSignature.class)){
+            // 判断是否存在令牌信息，如果存在，则允许登录
+            String accessToken = request.getParameter(ASSESS_TOKEN);
+            if(StringUtils.isBlank(ASSESS_TOKEN)){
+                throw new BizException("签名不存在");
+            }
+            Claims claims = null;
+            try {
+                claims = JwtUtils.parseJWT(accessToken);
+            }catch (Exception e){
+                throw new BizException("签名生成错误");
+            }
+            //签名格式错误
+            String[] firstParam = claims.getId().split("=");
+            if(ObjectUtils.isEmpty(firstParam)){
+                throw new BizException("签名格式错误");
+            }
+            // 签名被篡改
+            String parameter = request.getParameter(firstParam[0]);
+            if(!firstParam[1].equals(parameter)){
+                throw new BizException("签名被篡改");
+            }
+            boolean validation = false;
+            //获取签名生成的时间，签名有效时间十分钟
+            try{
+                long timeInMills = DateUtil.calendar(Long.parseLong(claims.get("exp") + "")).getTimeInMillis();
+                validation = DateUtil.calendar(System.currentTimeMillis()).getTimeInMillis() < (timeInMills + 10 * 60 *1000);
+
+            }catch (Exception e){
+                throw new BizException(e + "");
+            }
+
+            //过期
+            if(validation){
+                throw new BizException(CommonEnum.SIGNATURE_EXPIRED);
+            }
+        }
+        return super.preHandle(request, response, handler);
+
     }
 
     @Override

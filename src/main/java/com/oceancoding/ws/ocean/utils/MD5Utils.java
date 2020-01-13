@@ -2,7 +2,7 @@ package com.oceancoding.ws.ocean.utils;
 
 import java.security.MessageDigest;
 
-public class MD5Util {
+public class MD5Utils {
     private static final String SALT = "ocean";
 
     public static String encode(String password){
@@ -32,6 +32,6 @@ public class MD5Util {
     }
 
     public static void main(String[] args){
-        System.out.println(MD5Util.encode("aaaaa"));
+        System.out.println(MD5Utils.encode("aaaaa"));
     }
 }
