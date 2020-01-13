@@ -27,6 +27,13 @@ spring:
         #连接池中的最小空闲连接
         min-idle: 0
     timeout: 30000
+  mail:
+    host: smtp.163.com
+    username: 13121192200@163.com
+    password: ws0352
+    protocol: smtp
+    default-encoding: UTF-8
+    port: 25
 #  security:
 #    user:
 #      password: 123456
@@ -36,7 +43,6 @@ debug: true
 #  consumer:
 #    zookeeper:
 #      connect:
-
 logging:
   file:
     path: /var/log/

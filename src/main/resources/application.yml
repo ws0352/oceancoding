@@ -43,7 +43,6 @@ debug: true
 #  consumer:
 #    zookeeper:
 #      connect:
-
 logging:
   file:
     path: /var/log/
